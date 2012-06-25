@@ -1,4 +1,4 @@
-class Rating < ActiveRecord::Base
+class Spree::Rating < ActiveRecord::Base
   belongs_to :product
 
   NB_STARS=5
@@ -12,9 +12,9 @@ class Rating < ActiveRecord::Base
     self.value = value / count
     save
   end
-  
+
   def get_stars
     (self.value + 0.5).floor
   end
-  
+
 end

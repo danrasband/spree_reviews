@@ -1,5 +1,5 @@
-class ReviewsConfiguration < Configuration
-  # include non-approved reviews in (public) listings 
+class Spree::ReviewsConfiguration < Spree::Preferences::Configuration
+  # include non-approved reviews in (public) listings
   preference :include_unapproved_reviews, :boolean, :default => 'false'
 
   # control how many reviews are shown in summaries etc.

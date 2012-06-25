@@ -1,11 +1,14 @@
+Spree::Core::Engine.routes.draw do
 
+  # Add your extension routes here
+  namespace :admin do
+    resources :products do
+      resources :reviews
+      resource :review_settings
+    end
+  end
 
-map.namespace :admin do |admin|
-  admin.resources :reviews
-  admin.resource :review_settings
+  resources :products do
+    resources :reviews
+  end
 end
-
-map.resources :products do |product|
-  product.resources :reviews # , :member => {:submit => :post}
-end
-

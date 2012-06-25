@@ -1,6 +1,6 @@
 <div class="review">
   <span title="<%=pluralize(review.rating, 'star')%> out of 5">
-    <%= render :partial => "reviews/stars", :locals => {:stars => review.rating} %>
+    <%= render :partial => "spree/reviews/stars", :locals => {:stars => review.rating} %>
   </span>
   &nbsp; <span class="title"><%=h review.title%> </span>
   <br/>

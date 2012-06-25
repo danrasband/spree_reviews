@@ -6,8 +6,8 @@
 <h2> <%= t('leave_us_a_review') + ' "' + @product.name + '"' %> </h2>
 
 <% form_for @review, :url => {:action => 'create'} do |f| %>
-  <%= error_messages_for :review %>
-  <%= f.hidden_field :product_id, :value => @product.id %>     
+  <%#= error_messages_for :review %>
+  <%= f.hidden_field :product_id, :value => @product.id %>
 
     <table cellspacing="0" cellpadding="2">
 	<tbody><tr valign="top">
@@ -31,7 +31,7 @@
 		<strong>Rating</strong>
 	    </td>
 	    <td style="padding-top: 5px; padding-bottom: 5px;">
-              <%= render :partial => "reviews/stars", :locals => {:stars => @review.rating, :edit_enabled => true} %>
+              <%= render :partial => "spree/reviews/stars", :locals => {:stars => @review.rating, :edit_enabled => true} %>
 	    </td>
 	</tr>
 	<tr valign="top">
@@ -59,4 +59,4 @@
     </tbody></table>
 <% end %>
 
-<%= render :partial => "fine_print" %>
+<%= render :partial => "spree/reviews/fine_print" %>

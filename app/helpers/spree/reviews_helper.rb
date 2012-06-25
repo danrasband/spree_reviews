@@ -1,6 +1,6 @@
-module ReviewsHelper
+module Spree::ReviewsHelper
 
-  def star(the_class) 
+  def star(the_class)
     "<span class=\"#{the_class}\"> &#10030; </span>"
   end
 
