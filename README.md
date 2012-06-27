@@ -6,11 +6,7 @@ Straightforward review/rating facility
 Installation
 ------------
 
-Add the extension to your Gemfile and then run bundle:
-
-1. ```ruby
-gem 'spree_reviews', :git => 'git://github.com/danrasband/spree_reviews'
-```
+1. Add `gem 'spree_reviews', :git => 'git://github.com/danrasband/spree_reviews'` to your Gemfile
 2. Run `bundle install`
 3. To copy and apply migrations run:
 
