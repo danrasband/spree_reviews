@@ -1,6 +1,6 @@
 <h1><%= t('review_management_description') %></h1>
 
-<% for reviews in [["Unapproved", @unapproved_reviews], ["Approved", @approved_reviews]] %>
+<% [["Unapproved", @unapproved_reviews], ["Approved", @approved_reviews]].each do |reviews| %>
   <h2> <%= reviews[0] %> reviews </h2>
 
   <table cellspacing=6>
@@ -10,13 +10,13 @@
       <th><%= t('review_title') %> / <%= t('product') %></th>
       <th><%= t('review_content') %></th>
     </tr>
-  
-    <% for review in reviews[1] %>
+
+    <% reviews[1].each do |review| %>
     <tr>
-      <td> 
+      <td>
         <%= review.created_at.strftime("%d-%m-%y (%H:%M)") %>
       </td>
-      <td> 
+      <td>
         <%= h review.name %> from <%= h review.location %>
       </td>
       <td>
@@ -30,13 +30,13 @@
       </td>
       <td>
         <% unless review.approved %>
-          <%= link_to t('approve'), {:action => 'approve', :id => review} %> |
+          <%= link_to t('approve'), {:action => 'approve', :id => review.id} %> |
         <% end %>
           <%= link_to t('edit'), [:edit, :admin, review] %> |
           <%= link_to t('destroy'), [:admin, review], :method => :delete, :confirm => t('are_you_sure_review') %>
       </td>
     </tr>
-  <% end %>
+    <% end %>
   </table>
-  <br/> 
-<% end %> 
+  <br/>
+<% end %>

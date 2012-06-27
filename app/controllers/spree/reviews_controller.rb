@@ -1,6 +1,7 @@
 class Spree::ReviewsController < Spree::BaseController
   helper Spree::BaseHelper
-  # require_role [:user,:admin], :only => [:new,:create]
+
+  load_and_authorize_resource
 
   def index
     @product = Spree::Product.find_by_permalink params[:product_id]

@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.name        = 'spree_reviews'
   s.version     = '1.1.0'
   s.summary     = 'Simple reviews.'
-  s.description = 'Provides review functionality.'
+  s.description = 'Support for reviews and ratings within Spree.'
   s.required_ruby_version = '>= 1.9.2'
 
   s.author            = 'Dan Rasband'
