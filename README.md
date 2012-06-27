@@ -22,9 +22,7 @@ Usage
 -----
 
 1. Action "submit" in "reviews" controller - goes to review entry form
-
 2. Users must be logged in to submit a review
-
 3. Administrator can edit and/or approve and/or delete reviews.
 
 Copyright (c) 2012 [Dan Rasband], released under the MIT License
