@@ -1,42 +1,47 @@
+<% render 'spree/admin/shared/product_sub_menu' %>
 <h1><%= t('review_management_description') %></h1>
 
-<% [["Unapproved", @unapproved_reviews], ["Approved", @approved_reviews]].each do |reviews| %>
-  <h2> <%= reviews[0] %> reviews </h2>
+<% for reviews in [["Unapproved", @unapproved_reviews], ["Approved", @approved_reviews]] %>
+<h2><%= t(reviews[0]+"_reviews") %></h2>
 
-  <table cellspacing=6>
-    <tr>
-      <th>Date</th>
-      <th><%= t('user') %></th>
-      <th><%= t('review_title') %> / <%= t('product') %></th>
-      <th><%= t('review_content') %></th>
-    </tr>
+<table cellspacing="6" class="index">
+  <tr>
+    <th><%= t(:created_at) %></th>
+    <th><%= t(:user) %></th>
+    <th><%= t(:rating) %></th>
+    <th><%= t('product') %></th>
+    <th><%= t(:review) %></th>
+    <th></th>
+  </tr>
 
-    <% reviews[1].each do |review| %>
-    <tr>
-      <td>
-        <%= review.created_at.strftime("%d-%m-%y (%H:%M)") %>
-      </td>
-      <td>
-        <%= h review.name %> from <%= h review.location %>
-      </td>
-      <td>
-        <%= h review.title %>
-        <br/>
-        for <%= link_to review.product.name, product_path(review.product) %>
-      </td>
-      <td style="border: 1px dashed green" width="60%">
-        <br/>
-        <%= h review.review %>
-      </td>
-      <td>
-        <% unless review.approved %>
-          <%= link_to t('approve'), {:action => 'approve', :id => review.id} %> |
-        <% end %>
-          <%= link_to t('edit'), [:edit, :admin, review] %> |
-          <%= link_to t('destroy'), [:admin, review], :method => :delete, :confirm => t('are_you_sure_review') %>
-      </td>
-    </tr>
+  <% for review in reviews[1] %>
+  <tr id="<%= dom_id review %>">
+    <td>
+      <%= l review.created_at, :format => :review %>
+    </td>
+    <td>
+      <p><%= review.user_id ? link_to(review.user.try(:email), [:admin, review.user]) : review.name %></p>
+    </td>
+    <td>
+      <%= txt_stars(review.rating) %>
+    </td>
+    <td>
+    <% if review.product %>
+      <%= link_to review.product.name, product_path(review.product) %>
     <% end %>
-  </table>
-  <br/>
+    </td>
+    <td width="30%">
+      <%= h review.review %>
+    </td>
+    <td>
+      <% unless review.approved %>
+        <%= link_to_with_icon 'tick', t('approve'), {:action => 'approve', :id => review.id} %> <br />
+      <% end %>
+      <%= link_to_with_icon 'edit', t('edit'), spree.edit_admin_review_path(review) %><br/>
+      <%= link_to_with_icon 'delete', t(:delete), spree.admin_review_path(review), :method => :delete, :data => { :confirm => t(:are_you_sure) } %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+<br/>
 <% end %>

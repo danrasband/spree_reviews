@@ -1,17 +1,6 @@
-<%= error_messages_for :review %>
-<br />
-
-<p>
-  <%= form.text_field :name, :size => 30 %>
-</p>
-<p>
-  <%= form.text_field :location, :size => 50 %>
-</p>
-<p>
-  <%= form.text_area :review, :cols => 60, :rows => 10 %>
-</p>
-<br/>
-<p>
-  <%= form.submit button_name %>
-</p>
-
+<%= f.inputs do %>
+  <%= f.input :name, :label => t("reviews_rating.name") %>
+  <%= f.input :user, :label => t("reviews_rating.user")%>
+  <%= f.input :product, :label => t("reviews_rating.product")%>
+  <%= f.input :review, :input_html => { :value => @review.review }, :label => t("reviews_rating.review_content") %>
+<% end %>

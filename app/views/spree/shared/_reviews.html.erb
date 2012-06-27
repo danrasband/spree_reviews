@@ -1,12 +1,23 @@
-<% content_for :head do %>
-  <%= stylesheet_link_tag 'reviews.css' %>
-<% end %>
 <div id="reviews">
-  <%= render :partial => 'spree/shared/rating', :locals => {:product => @product, :review => 0} %>
-  <% @product.reviews.approval_filter.each do |review| %>
+<% unless @product.reviews.approved.blank? %>
+  <% for review in @product.reviews.approved.page(params[:page]).per(SpreeReviews::Config[:preview_size]) %>
     <%= render :partial => 'spree/shared/review', :locals => {:review => review} %>
   <% end %>
-
-  <%= link_to t('write_your_own_review'), spree.new_product_review_path(@product), :class => "button" %>
+<% else %>
+  <div class="review" itemprop="reviews" itemscope itemtype="http://schema.org/Review"><%= t("reviews_rating.no_reviews_found") %></div>
+<% end %>
+  <div class="pagination">
+    <div class="results"><%= paginate @product.reviews.approved.page(params[:page]).per(SpreeReviews::Config[:preview_size]) %></div>
+  </div>
+  <% if !SpreeReviews::Config[:require_login] || current_user %>
+    <% if !SpreeReviews::Config[:form_show] %>
+      <%= link_to(t('write_your_own_review'), new_product_review_path(@product), :class => "button-review", :rel => "nofollow,noindex") %>
+    <% else %>
+      <%= render "spree/reviews/new", :review => Spree::Review.new(:product => @product), :product => @product %>
+    <% end %>
+  <% end %>
+  <div id="new_review"></div>
+  <span class="clear"></span>
 </div>
-
+<%= javascript_include_tag 'store/review/index.js' %>
+<%= javascript_include_tag 'store/review/new.js' %>

@@ -1,18 +1,18 @@
 <%= render :partial => 'spree/admin/shared/configuration_menu' %>
 
-<h1><%= t("reviews.review_settings") %></h1>
+<h1><%= t("reviews_rating.review_settings") %></h1>
 
-<% form_tag(admin_review_settings_path, :method => :put) do -%>
-  <p>
-    <label><%= t("reviews.include_unapproved") %>:</label>
-    <%= check_box_tag('preferences[include_unapproved_reviews]', "1", SpreeReviews::Config[:include_unapproved_reviews]) %>
+<%= form_tag spree.admin_review_settings_path, :method => :put do %>
+  <fieldset id="preferences" data-hook>
+  <% @preferences.each do |key|
+      type = SpreeReviews::Config.preference_type(key) %>
+      <%= label_tag(key, t("reviews_rating.#{key}") + ': ') + tag(:br) if type != :boolean %>
+      <%= preference_field_tag(key, Spree::Config[key], :type => type) %>
+      <%= label_tag(key, t("reviews_rating.#{key}")) + tag(:br) if type == :boolean %>
+  <% end %>
+  </fieldset>
+  <p class="form-buttons" data-hook="buttons">
+    <%= button t(:update) %>
+    <%= t(:or) %> <%= link_to t(:cancel), spree.admin_review_settings_url %>
   </p>
-  <p>
-    <label><%= t('reviews.preview_size') %>:</label>
-    <%= text_field_tag('preferences[preview_size]', SpreeReviews::Config[:preview_size], :size => 3) %>
-  </p>
-  <p class="form-buttons">
-    <%= button t('update') %>
-    <%= t("or") %> <%= link_to t("cancel"), spree.admin_review_settings_url %>
-  </p>
-<% end -%>
+<% end %>

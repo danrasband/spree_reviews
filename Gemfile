@@ -6,7 +6,7 @@ else
   gem "ruby-debug19"
 end
 
-gem 'rspec-rails'
+gem 'spree', :git => 'git://github.com/spree/spree.git'
 
 group :development, :test do
   gem 'growl'

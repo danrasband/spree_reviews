@@ -1,10 +1,14 @@
 \#*
 *~
 .#*
-.DS_Store
+*.gem
 .idea
-.project
-tmp
+.bundle
 nbproject
 *.swp
+.DS_Store
+.project
+tmp
+pkg/*
 spec/dummy
+Gemfile.lock

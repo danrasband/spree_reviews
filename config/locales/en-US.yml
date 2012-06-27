@@ -1,21 +1,149 @@
+---
 en:
-  write_your_own_review: Write your own review
+  activerecord:
+    errors: &errors
+      format: "%{attribute} %{message}\n"
+
+      messages: &errors_messages
+        inclusion: "is not included in the list"
+        exclusion: "is reserved"
+        invalid: "is invalid"
+        confirmation: "doesn't match confirmation"
+        record_invalid: "Validation failed: %{errors}"
+        taken: has already been taken
+        accepted: "must be accepted"
+        empty: "can't be empty"
+        blank: "can't be blank"
+        too_long:
+          one: "is too long (maximum is 1 character)"
+          other: "is too long (maximum is %{count} characters)"
+        too_short:
+          one:  "is too short (minimum is 1 character)"
+          other:  "is too short (minimum is %{count} characters)"
+        wrong_length:
+          one: "is the wrong length (should be 1 character)"
+          other: "is the wrong length (should be %{count} characters)"
+        not_a_number: "is not a number"
+        not_an_integer: "must be an integer"
+        greater_than: "must be greater than %{count}"
+        greater_than_or_equal_to: "must be greater than or equal to %{count}"
+        equal_to: "must be equal to %{count}"
+        less_than: "must be less than %{count}"
+        less_than_or_equal_to: "must be less than or equal to %{count}"
+        odd: "must be odd"
+        even: "must be even"
+
+      models:
+        review:
+          attributes:
+            review:
+              name: Your Name
+              title: Title
+              review: Content
+              rating: Rating
+              created_at: Date
+              ip_address: IP
+              user: User
+    attributes:
+      review:
+        name: Your Name
+        title: Title
+        review: Content
+        rating: Rating
+        created_at: Date
+        ip_address: IP
+        user: User
+    models:
+      review:
+        one: one review
+        many: "%{count} reviews"
+  time:
+    formats:
+      default: "%a %d %b %Y, %H:%M:%S %z"
+      short: "%d %b %H:%M"
+      long: "%d %B %Y %H:%M"
+      review: "%m/%d/%Y"
+      hours: "%H:%M"
+      dow: "%A"
+
+  approve: Approve
+  on_stars: 'on'
+  stars: stars!
+  Approved_reviews: Approved
+  approved_text: Unlocked comments will be published within 1-2 business days.
+  are_you_sure_review: Are you sure to delete review ?
+  average_customer_rating: Average rating
+  back_reviews: Back to the reviews
+  based_upon: based upon
+  by: by
+  date_: Date
+  edited_version: 'Edited version'
+  editing_review_for: 'Editing review for'
+  error_approve_review: Error approving review
+  feedback: Feedback
+  feedback_review_for: "Review: '%{review}'"
+  for: for
+  from: from
+  guideline_text: We reserve the right not to post opinions unrelated to your product
+  info_approve_review: Review approved
+  leave_us_a_review: Leave us a review and a rating
+  original_version: 'Original version'
+  out_of_5: "out of 5"
+  no_rated: No rated
+  created_at: Created at
+  rating: rating
+  reviews: Reviews
+  review_content: Content
+  review_settings: Reviews Settings
+  manage_review_settings: Manage Reviews Settings
+  review_guidelines: Review Guidelines
   review_management: Review Management
   review_management_description: Manage user-submitted reviews
-  back_reviews: Back to the reviews
-  are_you_sure_review: Are you sure to delete review ?
-  info_approve_review: Review approved
-  error_approve_review: Error approving review
-  approve: Approve
-  leave_us_a_review: Please leave us a review and a rating for our
-  review_successfully_sumbitted: Review was successfully submitted
-  rating: rating
-  submit_your_review: Submit your review
-  review_content: Content
+  review_name: Your Name
+  review_successfully_submitted: Review was successfully submitted
+  review_not_submitted: Review was not submitted
   review_title: Title
-  reviews:
+  reviews_rating:
+    preview_size: Size of the review snippets
+    include_unapproved_reviews: Include unapproved reviews in listings
+    show_email: Show user email
+    require_login: Authentication required
+    form_show: View form for insert review
+    on_stars: 'on'
+    write: Write
+    a_review: a Review
+    name: Name
+    review: Review
+    note_reviews: Note
+    continue: Send
+    no_reviews_found: No review yet included
+    edited_version: Edited Version
+    original_version: Original Version
+    review_settings: Reviews Setting
+    manage_review_settings: Manage Reviews Setting
+    rating: Rate
+    note_review_description: Do not insert HTML code!
     review_settings: Review Settings
     manage_review_settings: Control the display of reviews
-    preview_size: Size of the review snippets
-    include_unapproved: Include unapproved reviews in listings
-
+    feedback_rating: Rate feedback
+    star_big: Big Star
+    require_login: Require user to be logged in
+    your_name: Your name
+    your_location: Your location
+  star:
+    one: "1"
+    other: "%{count}"
+  stars: Stars
+  submit_your_review: Submit your review
+  submitted_on: Submitted on
+  terms_text: All opinions must comply with our terms and conditions
+  terms_and_conditions: Terms & Conditions
+  the_fine_print: The fine print
+  Unapproved_reviews: Unapproved
+  voice:
+    one: "1 voice"
+    other: "%{count} voices"
+  write_your_own_review: Write your own review
+  cancel_your_review: Cancel
+  was_this_review_helpful: "Was this review helpful to you?"
+  you_must_enter_value_for_rating: "You must enter a value for rating."

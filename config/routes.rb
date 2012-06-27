@@ -1,6 +1,5 @@
-Spree::Core::Engine.routes.draw do
+Spree::Core::Engine.routes.prepend do
 
-  # Add your extension routes here
   namespace :admin do
     resources :reviews do
       member do
@@ -13,4 +12,5 @@ Spree::Core::Engine.routes.draw do
   resources :products do
     resources :reviews
   end
+
 end

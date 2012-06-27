@@ -1,11 +1,19 @@
-<div class="review">
-  <span title="<%=pluralize(review.rating, 'star')%> out of 5">
-    <%= render :partial => "spree/reviews/stars", :locals => {:stars => review.rating} %>
-  </span>
-  &nbsp; <span class="title"><%=h review.title%> </span>
-  <br/>
-  <span class="attribution">By <strong><%=h review.name%></strong> from <strong><%=h review.location%></strong> on <strong><%=review.created_at.strftime("%d/%m/%Y") %></strong></span>
-  <p>
-  <%=h review.review%>
+<div class="review" itemprop="reviews" itemscope itemtype="http://schema.org/Review">
+  <% if SpreeReviews::Config[:show_email] && review.user %>
+  <p class="author" itemprop="author"><strong><%= review.user.email %></strong>
+  <% else %>
+  <p class="author" itemprop="author"><strong><%= raw review.name %></strong>
+  <% end %>
+    <small itemprop="datePublished"><%= t('submitted_on') %> (<%= l review.created_at.to_date %>)</small>
   </p>
+  <div class="right">
+      <div class="single_rating_holder">
+    <meta itemprop="reviewRating" content="<%= review.rating %>" />
+        <%= render :partial => "spree/shared/single_rating", :locals => {:review => review} %>
+      </div>
+    </div>
+  <div class="clear"></div>
+  <div itemprop="reviewBody">
+    <%= raw simple_format(review.review) %>
+  </div>
 </div>

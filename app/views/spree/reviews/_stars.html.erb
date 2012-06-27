@@ -1,21 +1,24 @@
 <% content_for :head do %>
-  <%= javascript_include_tag("jquery.rating.js") %>
-  <%= javascript_tag("$(document).ready(function(){$('.stars').rating({required:true});});") %>
+  <%= javascript_tag("$(document).ready(function(){$('.stars').raty({required:true});});") %>
 <% end %>
+<script>
+;(function($, document) {
+$(function() {
 
-<% if defined? edit_enabled
-    state = ""
-    name  = "review[rating]"
-  else
-    state = 'disabled="disabled"'
-    name  = defined?(review).nil? ? Time.now.tv_usec.to_s : "review_#{review}"
-  end %>
-<% for i in 1..Spree::Rating.get_nb_stars %>
-  <input name="<%= name %>"
-         type="radio" class="star"
-         value="<%= pluralize(i, 'star') %>" <%= state %>
-         <%= "checked=\"checked\"" if i==stars  %> />
-<% end %>
+  $("#new-star").raty({
+    cancel: true,
+    half:  true,
+    width: 180,
+    starHalf: 'star-half<%= "-big" if (SpreeReviews::Config[:star_big] == true) %>.png',
+    starOff: 'star-off<%= "-big" if (SpreeReviews::Config[:star_big] == true) %>.png',
+    starOn: 'star-on<%= "-big" if (SpreeReviews::Config[:star_big] == true) %>.png',
+    path: '/assets/',
+    click: function(score, evt) {
+      $("#review_rating").val(score);
+    }
+  });
 
-
-
+});
+})(jQuery, document);
+</script>
+<div id="new-star" data-rating="0"></div>

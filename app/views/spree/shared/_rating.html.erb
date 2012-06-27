@@ -1,14 +1,28 @@
-<% content_for :head do %>
-  <%= stylesheet_link_tag 'reviews.css' %>
-<% end %>
-<% stars = product.get_stars %>
-<div class="header clear">
-  Average customer rating:
-  (based upon <%= pluralize(stars[1], 'review') %>)
-  <span title="<%=pluralize(stars[0], 'star')%> out of 5">
-    <%= render :partial => "spree/reviews/stars", :locals => {:stars => stars[0]} %>
-  </span> &nbsp;
-  <br/>
-  <br/>
+<% stars = @product.get_stars
+if !stars.blank? %>
+<div class="rating">
+  <p><%= t('average_customer_rating') %>: </p>
+  <div id="star" data-rating="<%= stars[:star] || 0 %>"></div>
+  <p>(<%= t('based_upon') %> <%= stars[:rcount] %> <%= t('reviews') %>)</p>
+  <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+    <meta itemprop="ratingValue" content="<%= stars[:star] %>" />
+    <meta itemprop="reviewCount" content="<%= stars[:rcount] %>" />
+  </div>
 </div>
-
+<% end %>
+<script type="text/javascript">
+<!--//
+jQuery(document).ready(function() {
+  $("#star").raty({
+    readOnly: true,
+    score: <%= stars[:star] %>,
+    half:  true,
+    width: 180,
+    starHalf: 'star-half<%= "-big" if (SpreeReviews::Config[:star_big] == true) %>.png',
+    starOff: 'star-off<%= "-big" if (SpreeReviews::Config[:star_big] == true) %>.png',
+    starOn: 'star-on<%= "-big" if (SpreeReviews::Config[:star_big] == true) %>.png',
+    path: '/assets/'
+  });
+});
+//-->
+</script>

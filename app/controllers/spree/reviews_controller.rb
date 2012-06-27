@@ -2,29 +2,44 @@ class Spree::ReviewsController < Spree::BaseController
   helper Spree::BaseHelper
 
   load_and_authorize_resource
+  before_filter :load_product, :only => [:index, :new, :create]
 
   def index
-    @product = Spree::Product.find_by_permalink params[:product_id]
     @approved_reviews = Spree::Review.approved.find_all_by_product_id(@product.id)
   end
 
   def new
-    @product = Spree::Product.find_by_permalink params[:product_id]
-    @review = Spree::Review.new :product => @product
+    @review = Spree::Review.new(:product => @product)
   end
 
-  # save if all ok
   def create
-    @product = Spree::Product.find_by_permalink params[:product_id]
-    params[:review][:rating].sub!(/\s*stars/,'') unless params[:review][:rating].blank?
+    @review = Spree::Review.new(params[:review])
+    @review.product = @product
+    @review.user = current_user if user_signed_in?
+    @review.location = request.remote_ip
 
-    @review = Spree::Review.new :product => @product
-    if @review.update_attributes(params[:review])
-      flash[:notice] = 'Review was successfully submitted.'
-      redirect_to (spree.product_path(@product))
+    authorize! :create, @review
+
+    if @review.save
+      flash[:notice] = t('review_successfully_submitted')
+      respond_to do |format|
+        # TODO I may not want to do this in Javascript...
+        format.js { render "success" }
+      end
     else
-      # flash[:notice] = 'There was a problem in the submitted review'
-      render :action => "new"
+      respond_to do |format|
+        # TODO I may not want to do this in Javascript...
+        format.js { render "error" }
+      end
     end
   end
+
+  # TODO Is this needed?
+  def terms
+  end
+
+  private
+    def load_product
+      @product = Spree::Product.find_by_permalink!(params[:product_id])
+    end
 end
